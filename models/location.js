@@ -1,16 +1,31 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
-
-const Location = sequelize.define('Location', {
-  name: { type: DataTypes.STRING, allowNull: false },
-  description: { type: DataTypes.TEXT, allowNull: false },
-  locality: { type: DataTypes.STRING, allowNull: false },
-  coordinates: { type: DataTypes.GEOGRAPHY('POINT'), allowNull: false },
-  userId: { type: DataTypes.INTEGER, allowNull: false },
-}, {});
-
-Location.associate = (models) => {
-  Location.belongsTo(models.User, { foreignKey: 'userId' });
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class Location extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  }
+  Location.init(
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      locality: DataTypes.STRING,
+      coordinates: {
+        type: DataTypes.GEOGRAPHY("POINT"), // Para PostGIS
+        allowNull: false,
+      },
+      userId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Location",
+    }
+  );
+  return Location;
 };
-
-module.exports = Location;
