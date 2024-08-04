@@ -54,14 +54,29 @@ router.post('/login', login);
  *             properties:
  *               name:
  *                 type: string
+ *               gender:
+ *                 type: string
+ *               cpf:
+ *                 type: string
+ *                 description: Must have exactly 11 digits
+ *               address:
+ *                 type: string
  *               email:
  *                 type: string
  *               password:
  *                 type: string
+ *               birthdate:
+ *                 type: string
+ *                 format: date
  *     responses:
  *       201:
  *         description: User registered
+ *       400:
+ *         description: Email or CPF already registered, or CPF has invalid format
+ *       500:
+ *         description: Server error
  */
 router.post('/register', register);
+
 
 module.exports = router;

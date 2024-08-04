@@ -7,11 +7,25 @@ const register = async (req, res) => {
   const { name, gender, cpf, address, email, password, birthdate } = req.body;
 
   try {
+    // Verificação se o email já está registrado
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
       return res.status(400).json({ error: 'Email already registered' });
     }
 
+    // Verificação se o CPF já está registrado
+    const cpfExists = await User.findOne({ where: { cpf } });
+    if (cpfExists) {
+      return res.status(400).json({ error: 'CPF already registered' });
+    }
+
+    // Verificação se o CPF tem exatamente 11 números
+    const cpfPattern = /^\d{11}$/;
+    if (!cpfPattern.test(cpf)) {
+      return res.status(400).json({ error: 'CPF must have exactly 11 digits' });
+    }
+
+    // Criptografia da senha
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
@@ -23,14 +37,12 @@ const register = async (req, res) => {
       birthdate,
     });
 
-    // Gera um token JWT para o novo usuário
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({ user, token });
+    res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Error registering new user' });
   }
 };
+
 
 const login = async (req, res) => {
   const { email, password } = req.body;
