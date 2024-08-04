@@ -23,7 +23,10 @@ const register = async (req, res) => {
       birthdate,
     });
 
-    res.status(201).json(user);
+    // Gera um token JWT para o novo usuário
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(201).json({ user, token });
   } catch (error) {
     res.status(500).json({ error: 'Error registering new user' });
   }
