@@ -7,6 +7,23 @@ const register = async (req, res) => {
   const { name, gender, cpf, address, email, password, birthdate } = req.body;
 
   try {
+    // Verificação se o email está em formato válido
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    // Verificação se o CPF contém apenas números
+    const cpfPattern = /^\d+$/;
+    if (!cpfPattern.test(cpf)) {
+      return res.status(400).json({ error: 'CPF must contain only numbers' });
+    }
+
+    // Verificação se o CPF tem exatamente 11 números
+    if (cpf.length !== 11) {
+      return res.status(400).json({ error: 'CPF must have exactly 11 digits' });
+    }
+
     // Verificação se o email já está registrado
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
@@ -17,12 +34,6 @@ const register = async (req, res) => {
     const cpfExists = await User.findOne({ where: { cpf } });
     if (cpfExists) {
       return res.status(400).json({ error: 'CPF already registered' });
-    }
-
-    // Verificação se o CPF tem exatamente 11 números
-    const cpfPattern = /^\d{11}$/;
-    if (!cpfPattern.test(cpf)) {
-      return res.status(400).json({ error: 'CPF must have exactly 11 digits' });
     }
 
     // Criptografia da senha
@@ -42,7 +53,6 @@ const register = async (req, res) => {
     res.status(500).json({ error: 'Error registering new user' });
   }
 };
-
 
 const login = async (req, res) => {
   const { email, password } = req.body;
