@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { JWT_SECRET } = process.env;
+console.log('JWT_SECRET:', JWT_SECRET);
 
 const register = async (req, res) => {
   const { name, gender, cpf, address, email, password, birthdate } = req.body;
@@ -69,10 +70,11 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
+    console.log('Generated token:', token); 
     res.status(200).json({ token });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: 'Error logging in' });
   }
 };
-
 module.exports = { register, login };
