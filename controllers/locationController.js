@@ -57,19 +57,18 @@ const createLocation = async (req, res) => {
 
 const getLocations = async (req, res) => {
   try {
-    const locations = await Location.findAll({
-      where: { userId: req.user.id },
-    });
+    const locations = await Location.findAll();
     res.status(200).json(locations);
   } catch (error) {
     res.status(500).json({ error: "Error fetching locations" });
   }
 };
 
+
 const getLocation = async (req, res) => {
   try {
     const location = await Location.findOne({
-      where: { id: req.params.location_id, userId: req.user.id },
+      where: { id: req.params.location_id },
     });
     if (!location) {
       return res.status(404).json({ error: "Location not found" });
@@ -88,7 +87,7 @@ const updateLocation = async (req, res) => {
       where: { id: req.params.location_id, userId: req.user.id },
     });
     if (!location) {
-      return res.status(404).json({ error: "Location not found" });
+      return res.status(404).json({ error: "Location not found or not authorized to update" });
     }
 
     // Atualizar os campos
@@ -111,7 +110,7 @@ const deleteLocation = async (req, res) => {
       where: { id: req.params.location_id, userId: req.user.id },
     });
     if (!location) {
-      return res.status(404).json({ error: "Location not found" });
+      return res.status(404).json({ error: "Location not found or not authorized to delete" });
     }
 
     await location.destroy();
