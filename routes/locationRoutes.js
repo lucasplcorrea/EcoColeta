@@ -1,14 +1,3 @@
-const express = require('express');
-const { 
-  getLocations, 
-  getLocation, 
-  createLocation, 
-  updateLocation, 
-  deleteLocation 
-} = require('../controllers/locationController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const router = express.Router();
-
 
 /**
  * @swagger
@@ -75,7 +64,6 @@ const router = express.Router();
  *                     type: string
  *                     description: The Google Maps link
  */
-router.get('/', authMiddleware, getLocations);
 
 /**
  * @swagger
@@ -126,7 +114,6 @@ router.get('/', authMiddleware, getLocations);
  *                 linkMaps:
  *                   type: string
  */
-router.get('/:location_id', authMiddleware, getLocation);
 
 /**
  * @swagger
@@ -155,7 +142,6 @@ router.get('/:location_id', authMiddleware, getLocation);
  *       201:
  *         description: Location created
  */
-router.post('/', authMiddleware, createLocation);
 
 /**
  * @swagger
@@ -204,7 +190,6 @@ router.post('/', authMiddleware, createLocation);
  *       200:
  *         description: Location updated
  */
-router.put('/:location_id', authMiddleware, updateLocation);
 
 /**
  * @swagger
@@ -222,6 +207,22 @@ router.put('/:location_id', authMiddleware, updateLocation);
  *       204:
  *         description: Location deleted
  */
+
+const express = require('express');
+const { 
+  getLocations, 
+  getLocation, 
+  createLocation, 
+  updateLocation, 
+  deleteLocation 
+} = require('../controllers/locationController');
+const authMiddleware = require('../middlewares/authMiddleware');
+const router = express.Router();
+
+router.get('/', authMiddleware, getLocations);
+router.get('/:location_id', authMiddleware, getLocation);
+router.post('/', authMiddleware, createLocation);
+router.put('/:location_id', authMiddleware, updateLocation);
 router.delete('/:location_id', authMiddleware, deleteLocation);
 
 module.exports = router;
