@@ -1,4 +1,4 @@
-# EcoColeta
+# EcoColeta :recycle:
 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) ![BcryptJS](https://img.shields.io/badge/BcryptJS-0A2F33?style=for-the-badge&logo=none&logoColor=white) ![dotenv](https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=none&logoColor=black) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white) ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
@@ -6,7 +6,7 @@
 
 O **EcoColeta** é uma plataforma que facilita o gerenciamento de resíduos e o acesso a pontos de coleta de materiais recicláveis. Os usuários podem cadastrar novos pontos de coleta, encontrar pontos próximos, visualizar informações sobre os materiais aceitos em cada ponto e registrar suas próprias contribuições para a reciclagem.
 
-## Funcionalidades
+## Funcionalidades :wrench:
 
 | Funcionalidade Usuários | Status |
 | --- |     :---:      |
@@ -49,7 +49,7 @@ O **EcoColeta** é uma plataforma que facilita o gerenciamento de resíduos e o 
 - Node.js
 - PostgreSQL
 
-### Configuração do Ambiente
+### Configuração do Ambiente :key: 
 
 Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
 
@@ -61,7 +61,7 @@ DB_HOST=nome_do_seu_host
 JWT_SECRET=sua_chave_JWT
 ```
 
-### Configuração do Banco de Dados
+### Configuração do Banco de Dados :floppy_disk:
 Crie um arquivo config.json na pasta config com o seguinte conteúdo:
 
 ```json
@@ -89,7 +89,7 @@ Crie um arquivo config.json na pasta config com o seguinte conteúdo:
   }
 }
 ```
-## Instalação
+## Instalação :gear:
 
 1 - Clone o repositório:
 ```ssh
