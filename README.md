@@ -89,6 +89,9 @@ Crie um arquivo config.json na pasta config com o seguinte conteúdo:
   }
 }
 ```
+
+Uma lista com os comandos SQL utilizados foi deixada dentro da pasta SQL.
+
 ## Instalação :gear:
 
 1 - Clone o repositório:
