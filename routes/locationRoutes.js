@@ -1,7 +1,3 @@
-const express = require('express');
-const { getLocations, getLocation, createLocation, updateLocation, deleteLocation } = require('../controllers/locationController');
-const authMiddleware = require('../middlewares/authMiddleware');
-const router = express.Router();
 
 /**
  * @swagger
@@ -12,12 +8,10 @@ const router = express.Router();
 
 /**
  * @swagger
- * /:
+ * /locations:
  *   get:
  *     summary: Retrieve all locations
  *     tags: [Locations]
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of locations
@@ -37,23 +31,46 @@ const router = express.Router();
  *                   description:
  *                     type: string
  *                     description: The location description
- *                   locality:
+ *                   street:
  *                     type: string
- *                     description: The location locality
- *                   coordinates:
+ *                     description: The street name
+ *                   number:
  *                     type: string
- *                     description: The location coordinates
+ *                     description: The house/building number
+ *                   complement:
+ *                     type: string
+ *                     description: Additional address details
+ *                   district:
+ *                     type: string
+ *                     description: The district or neighborhood
+ *                   city:
+ *                     type: string
+ *                     description: The city name
+ *                   state:
+ *                     type: string
+ *                     description: The state code (e.g., SP)
+ *                   zip:
+ *                     type: string
+ *                     description: The ZIP code
+ *                   latitude:
+ *                     type: number
+ *                     format: double
+ *                     description: The latitude
+ *                   longitude:
+ *                     type: number
+ *                     format: double
+ *                     description: The longitude
+ *                   linkMaps:
+ *                     type: string
+ *                     description: The Google Maps link
  */
-router.get('/', authMiddleware, getLocations);
 
 /**
  * @swagger
- * /{location_id}:
+ * /locations/{location_id}:
  *   get:
  *     summary: Retrieve a specific location by ID
  *     tags: [Locations]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: location_id
  *         in: path
@@ -74,21 +91,36 @@ router.get('/', authMiddleware, getLocations);
  *                   type: string
  *                 description:
  *                   type: string
- *                 locality:
+ *                 street:
  *                   type: string
- *                 coordinates:
+ *                 number:
+ *                   type: string
+ *                 complement:
+ *                   type: string
+ *                 district:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 state:
+ *                   type: string
+ *                 zip:
+ *                   type: string
+ *                 latitude:
+ *                   type: number
+ *                   format: double
+ *                 longitude:
+ *                   type: number
+ *                   format: double
+ *                 linkMaps:
  *                   type: string
  */
-router.get('/:location_id', authMiddleware, getLocation);
 
 /**
  * @swagger
- * /:
+ * /locations:
  *   post:
  *     summary: Create a new location
  *     tags: [Locations]
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -100,26 +132,23 @@ router.get('/:location_id', authMiddleware, getLocation);
  *                 type: string
  *               description:
  *                 type: string
- *               locality:
+ *               number:
  *                 type: string
- *               coordinates:
+ *               complement:
  *                 type: string
- *               userId:
- *                 type: integer
+ *               zip:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Location created
  */
-router.post('/', authMiddleware, createLocation);
 
 /**
  * @swagger
- * /{location_id}:
+ * /locations/{location_id}:
  *   put:
  *     summary: Update an existing location
  *     tags: [Locations]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: location_id
  *         in: path
@@ -137,26 +166,37 @@ router.post('/', authMiddleware, createLocation);
  *                 type: string
  *               description:
  *                 type: string
- *               locality:
+ *               street:
  *                 type: string
- *               coordinates:
+ *               number:
  *                 type: string
- *               userId:
- *                 type: integer
+ *               complement:
+ *                 type: string
+ *               district:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               state:
+ *                 type: string
+ *               zip:
+ *                 type: string
+ *               latitude:
+ *                 type: number
+ *                 format: double
+ *               longitude:
+ *                 type: number
+ *                 format: double
  *     responses:
  *       200:
  *         description: Location updated
  */
-router.put('/:location_id', authMiddleware, updateLocation);
 
 /**
  * @swagger
- * /{location_id}:
+ * /locations/{location_id}:
  *   delete:
  *     summary: Delete a location
  *     tags: [Locations]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: location_id
  *         in: path
@@ -167,6 +207,22 @@ router.put('/:location_id', authMiddleware, updateLocation);
  *       204:
  *         description: Location deleted
  */
+
+const express = require('express');
+const { 
+  getLocations, 
+  getLocation, 
+  createLocation, 
+  updateLocation, 
+  deleteLocation 
+} = require('../controllers/locationController');
+const authMiddleware = require('../middlewares/authMiddleware');
+const router = express.Router();
+
+router.get('/', authMiddleware, getLocations);
+router.get('/:location_id', authMiddleware, getLocation);
+router.post('/', authMiddleware, createLocation);
+router.put('/:location_id', authMiddleware, updateLocation);
 router.delete('/:location_id', authMiddleware, deleteLocation);
 
 module.exports = router;
