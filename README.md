@@ -20,7 +20,9 @@ O **EcoColeta** é uma plataforma que facilita o gerenciamento de resíduos e o 
 | Cada usuário pode cadastrar um ou mais locais de coleta de resíduos, fornecendo informações detalhadas sobre cada local. | :white_check_mark: |
 | Informações como nome do local, descrição, localidade, coordenadas geográficas, e outras devem ser capturadas. | :white_check_mark: |
 | O usuário deve ser capaz de resgatar o link do Google Maps apontando para o local cadastrado. | :white_check_mark: |
-| Regras específicas devem ser implementadas, como não permitir a deleção de um usuário que tenha locais associados. | :white_check_mark: |
+| Regras específicas devem ser implementadas, como não permitir a deleção de um usuário que tenha locais associados. | :rotating_light: |
+
+Acabei não me atentando na regra de deleção de usuário com local associado, e criei uma regra de deleção de outro usuário somente se a senha do usuário e o ID forem passados "deleteByID".
 
 | Implementação de Mecanismo de Autenticação (JWT) | Status |
 | --- |     :---:      |
