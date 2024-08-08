@@ -11,7 +11,6 @@
  *   get:
  *     summary: Retrieve a list of all users (name and email only)
  *     tags: [Users]
- *     
  *     responses:
  *       200:
  *         description: A list of users
@@ -40,7 +39,6 @@
  *   get:
  *     summary: Retrieve the logged-in user's data
  *     tags: [Users]
- *     
  *     responses:
  *       200:
  *         description: The user's data
@@ -85,7 +83,6 @@
  *   put:
  *     summary: Update the logged-in user's data
  *     tags: [Users]
- *     
  *     requestBody:
  *       required: true
  *       content:
@@ -182,32 +179,31 @@
 
 /**
  * @swagger
- * /users/{id}:
+ * /deleteuser/{id}:
  *   delete:
- *     summary: Exclui um usuário pelo ID
- *     description: Exclui um usuário específico pelo ID, exigindo a senha do usuário a ser excluído.
- *     tags:
- *       - Users
+ *     summary: Delete a user by ID
+ *     description: Delete a specific user by ID, requiring the password of the user to be deleted.
+ *     tags: [Users]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID do usuário a ser excluído
+ *         description: ID of the user to be deleted
  *         schema:
  *           type: integer
- *       - in: body
- *         name: password
- *         required: true
- *         description: Senha do usuário a ser excluído
- *         schema:
- *           type: object
- *           properties:
- *             password:
- *               type: string
- *               example: "senhaSecreta"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 description: The password for confirmation
  *     responses:
  *       200:
- *         description: Usuário excluído com sucesso
+ *         description: User deleted successfully
  *         content:
  *           application/json:
  *             schema:
@@ -217,7 +213,7 @@
  *                   type: string
  *                   example: "User deleted successfully"
  *       400:
- *         description: Senha incorreta ou usuário não encontrado
+ *         description: Incorrect password or user not found
  *         content:
  *           application/json:
  *             schema:
@@ -226,7 +222,7 @@
  *                 error:
  *                   type: string
  *       401:
- *         description: Senha incorreta
+ *         description: Incorrect password
  *         content:
  *           application/json:
  *             schema:
@@ -236,7 +232,7 @@
  *                   type: string
  *                   example: "Incorrect password"
  *       404:
- *         description: Usuário não encontrado
+ *         description: User not found
  *         content:
  *           application/json:
  *             schema:
@@ -246,7 +242,7 @@
  *                   type: string
  *                   example: "User not found"
  *       500:
- *         description: Erro interno do servidor
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -257,15 +253,21 @@
  *                   example: "Error deleting user"
  */
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getAllUsers, getMe, updateMe, deleteMe, deleteUserById } = require('../controllers/userController');
-const authMiddleware = require('../middlewares/authMiddleware');
+const {
+  getAllUsers,
+  getMe,
+  updateMe,
+  deleteMe,
+  deleteUserById,
+} = require("../controllers/userController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get('/users', authMiddleware, getAllUsers);
-router.get('/me', authMiddleware, getMe);
-router.put('/me', authMiddleware, updateMe);
-router.delete('/me', authMiddleware, deleteMe);
-router.delete('/users/:id', authMiddleware, deleteUserById);
+router.get("/users", authMiddleware, getAllUsers);
+router.get("/me", authMiddleware, getMe);
+router.put("/me", authMiddleware, updateMe);
+router.delete("/me", authMiddleware, deleteMe);
+router.delete("/deleteuser/:id", authMiddleware, deleteUserById);
 
 module.exports = router;
